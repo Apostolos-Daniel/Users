@@ -1,50 +1,39 @@
 ﻿@page
 @model Web.Pages.IndexModel
 @{
-    ViewData["Title"] = "Home page";
+ViewData["Title"] = "Home page";
 }
 
-@if (ViewBag.Message == null)
-{
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-                <form method="post" class="well form-horizontal">
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                    <div class="form-row">
-                        <label asp-for="EmailAddress" class="col-md-4 control-label"></label>
 
-                        <div class="col-12 col-md-9 mb-2 mb-md-0">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input asp-for="EmailAddress" class="form-control" type="text"/>
-                            <span asp-validation-for="EmailAddress" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <label asp-for="Password" class="col-md-4 control-label"></label>
-
-                        <div class="col-12 col-md-9 mb-2 mb-md-0">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input asp-for="Password" class="form-control" type="text"/>
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <!-- Button -->
-                    <div class="form-group">
-
-                        <label class="col-md-6 control-label"></label>
-                        <div class="col-md-6">
-                            <button type="submit" value="Add" class="btn btn-warning">
-                                <span class="glyphicon glyphicon-send"></span> add
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+<form method="post" class="form-horizontal">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="EmailAddress" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="EmailAddress" class="form-control" />
+            <span asp-validation-for="EmailAddress" class="text-danger"></span>
         </div>
     </div>
-    <div class="col-xl-9 mx-auto">
-        <h3 class="mb-5">@Model.StatusMessage</h3>
+    <div class="form-group">
+        <label asp-for="Password" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
     </div>
-}
+    <div class="form-group">
+        <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="ConfirmPassword" class="form-control" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Add</button>
+        </div>
+    </div>
+</form>
+<div class="col-xl-9 mx-auto">
+    <h3 class="mb-5">@Model.StatusMessage</h3>
+</div>

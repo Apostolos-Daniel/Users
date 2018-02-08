@@ -16,11 +16,20 @@ namespace Users.Web.Pages
         [EmailAddress]
         [BindProperty]
         public string EmailAddress { get; set; }
-        
+
         [Required]
+        [StringLength(100, ErrorMessage = "The password must be at least 6 characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         [BindProperty]
         public string Password { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [BindProperty]
+        public string ConfirmPassword { get; set; }
 
         private readonly IUsersRepository _repository;
         public IndexModel(IUsersRepository usersRepository)
