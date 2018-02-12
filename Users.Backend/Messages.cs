@@ -8,7 +8,7 @@ namespace Users.Backend
 {
     public static class Messages
     {
-        public static string AddUserSuccess => "User added successfully to the databsae.";
+        public static string AddUserSuccess => "User added successfully to the database.";
 
         public static string UserInformationInvalid => "User information not valid, user has not been added to the database.";
 
