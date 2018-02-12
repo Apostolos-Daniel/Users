@@ -1,5 +1,8 @@
+IF EXISTS(SELECT *
+          FROM   dbo.Users)
+  DROP TABLE dbo.Users
 CREATE TABLE Users (
-    ID int IDENTITY(1,1) PRIMARY KEY,
     EmailAddress varchar(255) NOT NULL,
-    PasswordValue varchar(255),
+    PasswordHash BINARY(64) NOT NULL,
+    CONSTRAINT [PK_User_EmailAddress] PRIMARY KEY CLUSTERED (EmailAddress ASC)
 );

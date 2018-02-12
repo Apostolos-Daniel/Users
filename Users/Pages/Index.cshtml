@@ -7,38 +7,42 @@ ViewData["Title"] = "Home page";
 
 <form method="post" class="form-horizontal">
     <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="EmailAddress" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="EmailAddress" class="form-control" />
-            <span asp-validation-for="EmailAddress" class="text-danger"></span>
+    @if (!Model.UserSubmitted)
+    {
+        <div class="form-group">
+            <label asp-for="EmailAddress" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="EmailAddress" class="form-control" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="Password" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="Password" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="ConfirmPassword" class="form-control" />
-            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
         </div>
-    </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" asp-page-handler="Create" class="btn btn-default">Add</button>
+            </div>
+        </div>
+    }
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-default">Add</button>
+            <span>@Model.StatusMessage</span>
+            @if (Model.UserSubmitted)
+            {
+                <button type="submit" asp-page-handler="Ok" value="Ok" class="btn btn-default">Ok</button>
+            }
         </div>
     </div>
 </form>
-<div class="col-xl-9 mx-auto">
-    <h3 class="mb-5">@Model.StatusMessage</h3>
-</div>
-
-@section scripts {
-    <script src="./Scripts/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="./Scripts/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-}

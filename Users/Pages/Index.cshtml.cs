@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,13 +10,17 @@ namespace Users.Web.Pages
     {
         [TempData]
         public string StatusMessage { get; set; }
+
+        public bool UserSubmitted { get; set; }
         
         [Required]
         [EmailAddress]
+        [Display(Name = "Email Address")]
         [BindProperty]
         public string EmailAddress { get; set; }
 
         [Required]
+        [RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,}$")]
         [StringLength(100, ErrorMessage = "The password must be at least 6 characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
@@ -38,12 +40,13 @@ namespace Users.Web.Pages
             _repository = usersRepository;
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPostCreate()
         {
-            if (!ModelState.IsValid || (ModelState.ValidationState == ModelValidationState.Invalid))
+            if (!ModelState.IsValid || ModelState.ValidationState == ModelValidationState.Invalid)
             {
                 return Page();
             }
+            UserSubmitted = true;
 
             User user = new User
             {
@@ -51,8 +54,14 @@ namespace Users.Web.Pages
                 Password = Password
             };
             StatusMessage = _repository.AddUser(user);
+            
+            return Page();
+        }
 
-            return RedirectToPage("Index");
+        public IActionResult OnPostOk()
+        {
+            StatusMessage = string.Empty;
+            return RedirectToPage("/Index");
         }
     }
 }
