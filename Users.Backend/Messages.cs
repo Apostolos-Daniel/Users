@@ -8,28 +8,28 @@ namespace Users.Backend
 {
     public static class Messages
     {
-        public static string AddUserSuccess => "User added successfully";
+        public static string AddUserSuccess => "User added successfully to the databsae.";
 
-        public static string UserInformationInvalid => "User information not valid";
+        public static string UserInformationInvalid => "User information not valid, user has not been added to the database.";
 
-        public static string InvalidEmailAddress => "Invalid email address";
+        public static string InvalidEmailAddress => "Invalid email address, user has not been added to the database.";
         
-        public static string PasswordTooShort => "Password is too short";
+        public static string PasswordTooShort => "Password is too short, user has not been added to the database.";
         
-        public static string InvalidPassword => "Invalid password";
+        public static string InvalidPassword => "Invalid password, user has not been added to the database.";
         
-        public static string PasswordsDoNotMatch => "Passwords don't match";
+        public static string PasswordsDoNotMatch => "Passwords don't match, user has not been added to the database.";
         
-        public static string Error => "An error has occurred.";
+        public static string Error => "An error has occurred, user has not been added to the database.";
 
-        public static string UserValid => "User valid.";
+        public static string UserValid => "User valid, user has been added to the database.";
 
-        public static string PasswordDoesNotMatchPattern => "Password does not match pattern.";
+        public static string PasswordDoesNotMatchPattern => "Password does not match pattern, user has not been added to the database.";
 
-        public static string PasswordNotSet => "Password not pattern.";
+        public static string PasswordNotSet => "Password not set, user has not been added to the database.";
 
-        public static string EmailAddressNotSet => "Email address not set.";
+        public static string EmailAddressNotSet => "Email address not set, user has not been added to the database.";
 
-        public static string UserExists => "User exists already";
+        public static string UserExists => "User exists already, user has not been added to the database.";
     }
 }
