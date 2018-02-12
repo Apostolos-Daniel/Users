@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using GenFu;
 using Users.Backend;
 using Xunit;
@@ -12,7 +10,7 @@ namespace Users.Test
         public void CreateUser_Success()
         {
             UserValidator userValidator = new UserValidator(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,}$", 6);
-            using (var db = new UsersRepository(userValidator))
+            using (var db = new UsersRepository())
             {
                 // Arrange
                 GenFu.GenFu.Configure<User>()
@@ -22,7 +20,7 @@ namespace Users.Test
                 var user = GenFu.GenFu.New<User>();
                 
                 // Act
-                string actualMessage = db.AddUser(user);
+                string actualMessage = db.AddUser(user, userValidator);
 
                 // Assert
                 Assert.Equal(
@@ -35,7 +33,7 @@ namespace Users.Test
         public void CreateUser_InvalidEmailAddress()
         {
             UserValidator userValidator = new UserValidator(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,}$", 6);
-            using (var db = new UsersRepository(userValidator))
+            using (var db = new UsersRepository())
             {
                 // Arrange
                 GenFu.GenFu.Configure<User>()
@@ -45,7 +43,7 @@ namespace Users.Test
                 var user = GenFu.GenFu.New<User>();
 
                 // Act
-                string actualMessage = db.AddUser(user);
+                string actualMessage = db.AddUser(user, userValidator);
 
                 // Assert
                 Assert.Equal(
@@ -59,7 +57,7 @@ namespace Users.Test
         {
             // Arrange
             UserValidator userValidator = new UserValidator(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,}$", 6);
-            var db = new UsersRepository(userValidator);
+            var db = new UsersRepository();
             GenFu.GenFu.Configure<User>()
                 .Fill(x => x.EmailAddress).AsEmailAddress()
                 .Fill(x => x.Password, u => MockDataUtilities.RandomInvalidPassword(6))
@@ -67,7 +65,7 @@ namespace Users.Test
             var user = GenFu.GenFu.New<User>();
 
             // Act
-            string actualMessage = db.AddUser(user);
+            string actualMessage = db.AddUser(user, userValidator);
 
             // Assert
             Assert.Equal(
@@ -79,7 +77,7 @@ namespace Users.Test
         public void CreateUser_PasswordTooShort()
         {
             UserValidator userValidator = new UserValidator(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,}$", 6);
-            var db = new UsersRepository(userValidator);
+            var db = new UsersRepository();
             // Arrange
             GenFu.GenFu.Configure<User>()
                 .Fill(x => x.EmailAddress).AsEmailAddress()
@@ -88,7 +86,7 @@ namespace Users.Test
             var user = GenFu.GenFu.New<User>();
 
             // Act
-            string actualMessage = db.AddUser(user);
+            string actualMessage = db.AddUser(user, userValidator);
 
             // Assert
             Assert.Equal(
@@ -100,7 +98,7 @@ namespace Users.Test
         public void CreateUser_PasswordsDoNotMatch()
         {
             UserValidator userValidator = new UserValidator(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,}$", 6);
-            var db = new UsersRepository(userValidator);
+            var db = new UsersRepository();
             // Arrange
             GenFu.GenFu.Configure<User>()
                 .Fill(x => x.EmailAddress).AsEmailAddress()
@@ -109,7 +107,7 @@ namespace Users.Test
             var user = GenFu.GenFu.New<User>();
 
             // Act
-            string actualMessage = db.AddUser(user);
+            string actualMessage = db.AddUser(user, userValidator);
 
             // Assert
             Assert.Equal(
@@ -121,7 +119,7 @@ namespace Users.Test
         public void CreateUser_EmailAddressExistsAlready()
         {
             UserValidator userValidator = new UserValidator(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,}$", 6);
-            using (var db = new UsersRepository(userValidator))
+            using (var db = new UsersRepository())
             {
                 // Arrange
                 GenFu.GenFu.Configure<User>()
@@ -131,9 +129,9 @@ namespace Users.Test
                 var user = GenFu.GenFu.New<User>();
                 
                 // Act
-                db.AddUser(user);
+                db.AddUser(user, userValidator);
                 // add user again
-                string actualMessage = db.AddUser(user);
+                string actualMessage = db.AddUser(user, userValidator);
 
                 // Assert
                 Assert.Equal(

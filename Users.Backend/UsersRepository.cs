@@ -10,20 +10,18 @@ namespace Users.Backend
     public class UsersRepository : IUsersRepository, IDisposable
     {
         private readonly string _connString;
-        private readonly UserValidator _oUserValidator;
 
-        public UsersRepository(UserValidator oUserValidator)
+        public UsersRepository()
         {
             _connString = "Data Source=localhost;initial catalog=UsersDb; User ID=sa;Password=sqlpass;Integrated Security=SSPI;";
-            _oUserValidator = oUserValidator;
 
         }
 
-        public string AddUser(User user)
+        public string AddUser(User user, UserValidator userValidator)
         {
             // add user to database
             string result = Messages.AddUserSuccess;
-            if (_oUserValidator == null || !_oUserValidator.IsValid(user, out result))
+            if (userValidator == null || !userValidator.IsValid(user, out result))
             {
                 return result;
             }
@@ -42,7 +40,7 @@ namespace Users.Backend
                 return Messages.Error;
             }
 
-            return Messages.AddUserSuccess;
+            return result;
         }
 
         private IEnumerable<string> GetRegisteredUsersEmailAddresses()

@@ -1,6 +1,9 @@
-IF EXISTS(SELECT *
-          FROM   dbo.Users)
-  DROP TABLE dbo.Users
+IF  NOT EXISTS (SELECT * FROM sys.databases WHERE name = N'UsersDb')
+    BEGIN
+        CREATE DATABASE [UsersDb]
+    END;
+IF OBJECT_ID('dbo.Users', 'U') IS NOT NULL 
+  DROP TABLE dbo.Users; 
 CREATE TABLE Users (
     EmailAddress varchar(255) NOT NULL,
     PasswordHash BINARY(64) NOT NULL,

@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Users.Backend
 {
-    public class UserValidator
+    public class UserValidator : IUserValidator
     {
         private readonly string _passwordPattern;
         private readonly int _nMinPasswordLength;
@@ -14,6 +14,7 @@ namespace Users.Backend
             _passwordPattern = passwordPattern;
             _nMinPasswordLength = nMinPasswordLength;
         }
+
         public bool IsValid(User user, out string result)
         {
             result = Messages.UserValid;
@@ -32,7 +33,7 @@ namespace Users.Backend
                 result = Messages.PasswordTooShort;
                 return false;
             }
-            if (!IsValidEmailAddress(user.EmailAddress))
+            if (!HasValidEmailAddress(user.EmailAddress))
             {
                 result = Messages.InvalidEmailAddress;
                 return false;
@@ -51,7 +52,7 @@ namespace Users.Backend
             return true;
         }
         
-        public static bool IsValidEmailAddress(string emailaddress)
+        public bool HasValidEmailAddress(string emailaddress)
         {
             try
             {

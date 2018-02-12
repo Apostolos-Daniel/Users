@@ -53,7 +53,8 @@ namespace Users.Web.Pages
                 EmailAddress = EmailAddress,
                 Password = Password
             };
-            StatusMessage = _repository.AddUser(user);
+            UserValidator userValidator = new UserValidator(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,}$", 6);
+            StatusMessage = _repository.AddUser(user, userValidator);
             
             return Page();
         }

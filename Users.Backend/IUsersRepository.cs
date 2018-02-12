@@ -6,6 +6,6 @@ namespace Users.Backend
 {
     public interface IUsersRepository
     {
-        string AddUser(User user);
+        string AddUser(User user, UserValidator userValidator);
     }
 }

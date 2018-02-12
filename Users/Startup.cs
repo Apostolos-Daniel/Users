@@ -21,6 +21,7 @@ namespace Users
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            
             services.AddScoped<IUsersRepository, UsersRepository>();
             
             // Register the Swagger generator, defining one or more Swagger documents
