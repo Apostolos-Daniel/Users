@@ -1,7 +1,3 @@
-IF  NOT EXISTS (SELECT * FROM sys.databases WHERE name = N'UsersDb')
-    BEGIN
-        CREATE DATABASE [UsersDb]
-    END;
 IF OBJECT_ID('dbo.Users', 'U') IS NOT NULL 
   DROP TABLE dbo.Users; 
 CREATE TABLE Users (

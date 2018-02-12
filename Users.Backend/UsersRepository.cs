@@ -40,7 +40,7 @@ namespace Users.Backend
                 return Messages.Error;
             }
 
-            return result;
+            return Messages.AddUserSuccess;
         }
 
         private IEnumerable<string> GetRegisteredUsersEmailAddresses()

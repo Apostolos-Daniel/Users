@@ -51,7 +51,8 @@ namespace Users.Web.Pages
             User user = new User
             {
                 EmailAddress = EmailAddress,
-                Password = Password
+                Password = Password,
+                PasswordConfirmation = Password
             };
             UserValidator userValidator = new UserValidator(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,}$", 6);
             StatusMessage = _repository.AddUser(user, userValidator);
